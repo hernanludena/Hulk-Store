@@ -1,0 +1,331 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" template="/resources/template/template.xhtml">
+
+    <ui:define name="title">#{msg['sistema.pagina.inicio']}</ui:define>
+    <ui:define name="content">
+        <p:layoutUnit position="center" resizable="true" size="50%">
+            <h:form id="tiendaForm">
+                <p:panelGrid >
+                    <p:toolbar >
+                        <p:toolbarGroup>
+                            <p:commandButton value="Nuevo Producto" icon="pi pi-plus" actionListener="#{tiendaBean.nuevoProducto}"
+                                             oncomplete="PF('manageProductDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem"
+                                             update="productoForm"
+                                             rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}"/>
+                            <p:commandButton value="Ver Carrito" 
+                                             id="btnCarrito"
+                                             icon="ui-icon-cart" 
+                                             oncomplete="PF('compraDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem"
+                                             update="pagarForm"
+                                             rendered="#{tiendaBean.carrito.size()>0}" />
+
+
+                        </p:toolbarGroup>
+                    </p:toolbar>
+
+                    <p:dataTable id="productosTablaCarrito" var="productoCarrito" value="#{tiendaBean.carrito}" 
+                                 emptyMessage="No existe Data" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 paginatorPosition="bottom"
+                                 rendered="#{tiendaBean.pagar}">
+                        <f:facet name="header">
+                            Carrito
+                        </f:facet>
+                        <p:column style="width: 10em" headerText="ID">
+                            <h:outputText value="#{productoCarrito.producto.id}" >
+                                <!--                                <f:convertDateTime pattern="dd/MM/yyyy" />-->
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Nombre" style="width: 10em">
+                            <h:outputText value="#{productoCarrito.producto.nombre}" />
+                        </p:column>
+                        <p:column headerText="Imagen" >
+                            <p:graphicImage value="https://cdn2.bigcommerce.com/server1900/a57ec/products/293/images/1498/Captura_de_pantalla_2017-01-14_a_las_12.34.59__83340.1484415331.1280.1280.png?c=2"
+                                            width="100em" 
+                                            styleClass="product-image"/>
+                        </p:column>
+                        <p:column headerText="Cantidad" style="width: 10em" >
+                            <h:outputText value="#{productoCarrito.cantidad}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:dataTable id="productosTabla" var="producto" value="#{tiendaBean.tienda.producto}" 
+                                 emptyMessage="No existe Data" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 paginatorPosition="bottom"
+                                 rendered="#{!tiendaBean.pagar}">
+                        <f:facet name="header">
+                            Mercaderia
+                        </f:facet>
+                        <p:column style="width: 10em" headerText="ID">
+                            <h:outputText value="#{producto.id}" >
+                                <!--                                <f:convertDateTime pattern="dd/MM/yyyy" />-->
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Nombre" style="width: 10em">
+                            <h:outputText value="#{producto.nombre}" />
+                        </p:column>
+                        <p:column headerText="Tipo" style="width: 30em" >
+                            <h:outputText value="#{producto.tipo}" />
+                        </p:column>
+                        <p:column headerText="Imagen" >
+                            <p:graphicImage value="https://cdn2.bigcommerce.com/server1900/a57ec/products/293/images/1498/Captura_de_pantalla_2017-01-14_a_las_12.34.59__83340.1484415331.1280.1280.png?c=2"
+                                            width="100em" 
+                                            styleClass="product-image"/>
+                        </p:column>
+                        <p:column headerText="Inventario" style="width: 30em; text-align: center" 
+                                  rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}">
+                            <h:outputText value="#{producto.cantExistencia}" />
+                        </p:column>
+                        <p:column headerText="Vendidos" 
+                                  style="width: 30em; text-align: center" 
+                                  rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}">
+                            <h:outputText value="#{producto.cantVendido}" />
+                        </p:column>
+                        <p:column headerText="IVA" 
+                                  style="width: 30em; text-align: center" 
+                                  rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}">
+                            <h:outputText value="#{producto.gravaIVA == true ? 'SI' : 'NO'}" />
+                        </p:column>
+                        <p:column style="width: 8em; text-align: center" 
+                                  headerText="Editar"
+                                  rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}">
+                            <p:commandButton update="productoForm" 
+                                             icon="ui-icon-pencil" 
+                                             title="Editar"
+                                             oncomplete="PF('manageProductDialog').show()">
+                                <f:setPropertyActionListener value="#{producto}" target="#{tiendaBean.producto}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column style="width: 8em; text-align: center" 
+                                  headerText="Comprar"
+                                  rendered="#{tiendaBean.validarSesion() and !tiendaBean.getRolVendedor()}">
+                            <p:commandButton update="productoForm" 
+                                             icon="ui-icon-plusthick" 
+                                             title="Añadir a Carrito"
+                                             oncomplete="PF('manageProductDialog').show()">
+                                <f:setPropertyActionListener value="#{producto}" target="#{tiendaBean.producto}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:separator/>
+                    <p:separator/>
+                    <p:separator/>
+                    <p:panelGrid  rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}">
+                        <h2>Kardex Tienda</h2>
+                    </p:panelGrid>
+                    <p:separator  rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}"/>
+                    <p:dataTable id="kardexTabla" 
+                                 var="kardex" 
+                                 value="#{tiendaBean.productosKardex}" 
+                                 emptyMessage="No existe Data" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 paginatorPosition="bottom"
+                                 rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}">
+                        <f:facet name="header">
+                            Kardex Tienda
+                        </f:facet>
+                        <p:column style="width: 10em" headerText="Detalle">
+                            <h:outputText value="#{kardex.detalle}" />
+                        </p:column>
+                        <p:column style="width: 10em" headerText="Cantidad Haber">
+                            <h:outputText value="#{kardex.detalleHaber.cantidad}" />
+                        </p:column>
+                        <p:column headerText="Valor Haber" style="width: 10em" >
+                            <h:outputText value="#{kardex.detalleHaber.valor}" />
+                        </p:column>                        
+                        <p:column style="width: 10em" headerText="Cantidad Debe">
+                            <h:outputText value="#{kardex.detalleDebe.cantidad}" />
+                        </p:column>
+                        <p:column headerText="Valor Debe" style="width: 10em" >
+                            <h:outputText value="#{kardex.detalleDebe.valor}" />
+                        </p:column> 
+
+                    </p:dataTable>
+
+                </p:panelGrid>
+            </h:form>
+            <h:form id="productoForm">
+                <p:dialog header="Nuevo Producto" showEffect="fade" modal="true"
+                          widgetVar="manageProductDialog" responsive="true"
+                          width="30%">
+                    <p:outputPanel id="manage-product-content" class="ui-fluid">
+                        <p:outputPanel rendered="#{not empty tiendaBean.producto}">
+                            <p:panelGrid style="text-align: center" >
+                                <p:graphicImage value="https://cdn2.bigcommerce.com/server1900/a57ec/products/293/images/1498/Captura_de_pantalla_2017-01-14_a_las_12.34.59__83340.1484415331.1280.1280.png?c=2"
+                                                width="150em" 
+                                                style="text-align: center; width: 100%"
+                                                styleClass="product-image"/>
+                                <p:separator/>
+                            </p:panelGrid>
+                            <p:panelGrid >
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="nombre">Nombre</p:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText id="nombre" value="#{tiendaBean.producto.nombre}"
+                                                     disabled="#{tiendaBean.validarSesion() and !tiendaBean.getRolVendedor()}"                                             
+                                                     required="true"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="quantity" >Cantidad Inventario</p:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:spinner id="quantity" min="0" value="#{tiendaBean.producto.cantExistencia}"
+                                                   disabled="#{tiendaBean.validarSesion() and !tiendaBean.getRolVendedor()}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="valorUnitario">Precio Unitario</p:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputNumber id="valorUnitario" value="#{tiendaBean.producto.valorUnitario}"
+                                                       symbol=" USD" 
+                                                       symbolPosition="s"
+                                                       decimalSeparator="." 
+                                                       thousandSeparator=","
+                                                       rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}"/>
+
+                                        <p:outputLabel id="valorUnitarioVenta" value="#{tiendaBean.calcularValorIVA()} USD"
+                                                       rendered="#{tiendaBean.validarSesion() and !tiendaBean.getRolVendedor()}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="tipo">Tipo</p:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="tipo" value="#{tiendaBean.producto.tipo}"
+                                                          layout="responsive" columns="2"
+                                                          disabled="#{tiendaBean.validarSesion() and !tiendaBean.getRolVendedor()}">
+                                            <f:selectItem itemLabel="Marvel" itemValue="MARVEL"/>
+                                            <f:selectItem itemLabel="DC" itemValue="DC"/>
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}">
+                                    <p:column>
+                                        <p:outputLabel for="iva">IVA</p:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="iva" value="#{tiendaBean.producto.gravaIVA}"
+                                                          layout="responsive" columns="2"
+                                                          >
+                                            <f:selectItem itemLabel="SI" itemValue="#{true}"/>
+                                            <f:selectItem itemLabel="NO" itemValue="#{false}"/>
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                </p:row>
+                                <p:row  rendered="#{tiendaBean.validarSesion() and !tiendaBean.getRolVendedor()}">
+                                    <p:column>
+                                        <p:outputLabel for="cantidad">Cantidad</p:outputLabel>
+                                    </p:column>
+                                    <p:column><p:spinner id="cantidad" min="0" value="#{tiendaBean.cantidad}"/>
+                                    </p:column>
+
+                                </p:row>
+                            </p:panelGrid>
+
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{tiendaBean.agregarProducto}"
+                                         update="tiendaForm" process="productoForm"
+                                         oncomplete="PF('manageProductDialog').hide()"
+                                         rendered="#{tiendaBean.validarSesion() and tiendaBean.getRolVendedor()}"/>
+                        <p:commandButton value="Agregar a carrito" icon="pi pi-check" 
+                                         update="tiendaForm" process="productoForm"
+                                         actionListener="#{tiendaBean.agregarCarrito}"
+                                         rendered="#{tiendaBean.validarSesion() and !tiendaBean.getRolVendedor()}"/>
+                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                         class="ui-button-secondary"/>
+                    </f:facet>
+                </p:dialog>
+            </h:form>
+            <h:form id="loginForm">
+                <p:dialog header="Ingresar Usuario" showEffect="fade" 
+                          modal="true"
+                          widgetVar="login" responsive="true"
+                          closable="false">
+                    <p:outputLabel value="#{login.msg}" rendered="#{tiendaBean.login.msg !=null}"></p:outputLabel>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <p:inputText placeholder="Usuario" value="#{tiendaBean.login.user}" autocomplete="false" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:password placeholder="Contraseña" feedback="false" value="#{tiendaBean.login.pwd}" autocomplete="false" />
+                        </div>
+                        <div class="ui-g-12 button-container">
+                            <p:commandButton value="Ingresar" 
+                                             update=":tiendaForm :logForm"
+                                             actionListener="#{tiendaBean.login.validateUsernamePassword()}" />
+                            <p:separator/>
+                            <p:commandButton value="Cerrar" 
+                                             oncomplete="PF('login').hide()"/>
+                        </div>
+                    </div>
+                </p:dialog>
+            </h:form>
+            <h:form id="pagarForm">
+                <p:dialog header="Resumen Compra"
+                          showEffect="fade" modal="true"
+                          widgetVar="compraDialog" 
+                          responsive="true"
+                          width="60%">
+                    <p:dataTable id="productosTabla" 
+                                 var="productoCarrito" 
+                                 value="#{tiendaBean.carrito}" 
+                                 emptyMessage="No existe Data" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 paginatorPosition="bottom"
+                                 >
+                        <f:facet name="header">
+                            Carrito compras
+                        </f:facet>
+                        <p:column style="width: 10em" headerText="Producto">
+                            <h:outputText value="#{productoCarrito.producto.nombre}" />
+                        </p:column>
+                        <p:column headerText="Cantidad" style="width: 5em" >
+                            <h:outputText value="#{productoCarrito.cantidad}" />
+                        </p:column>                        
+                        <p:column headerText="Imagen" style="width: 5em">
+                            <p:graphicImage value="https://cdn2.bigcommerce.com/server1900/a57ec/products/293/images/1498/Captura_de_pantalla_2017-01-14_a_las_12.34.59__83340.1484415331.1280.1280.png?c=2"
+                                            width="100em" 
+                                            styleClass="product-image"/>
+                        </p:column>
+                        <p:column headerText="Precio" style="width: 10em">
+                            <h:outputText value="#{tiendaBean.calcularIvaGenerico(productoCarrito.producto)}" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton value="Pagar Carrito" 
+                                     update=":tiendaForm"
+                                     actionListener="#{tiendaBean.pagarValoresCarrito()}" />
+                    <p:commandButton value="Cancelar Carrito" 
+                                     update=":tiendaForm"
+                                     actionListener="#{tiendaBean.cancelarCarrito()}" />
+                    <p:separator/>
+
+                </p:dialog>
+
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+    <div class="topbar">
+        <a id="omega-menu-button" href="#"> <span class="fa fa-bars" />
+        </a> <span class="topbar-title">#{msg['sistema.nombre']}</span> <a id="options-menu-button" href="#"> <span class="fa fa-ellipsis-h" />
+        </a>
+        <div id="topbar-icons" class="animated">
+            <h:form id="logForm">
+                <h:link id="user" styleClass="topbar-item-text">
+                    <span class="topbar-icon fa fa-user" />
+                </h:link>
+
+                <p:overlayPanel id="imgPanel" for="user" showEffect="blind" hideEffect="explode" showEvent="mouseover" hideEvent="mousedown" dismissable="true"
+                                showCloseIcon="false">
+                    <p:panel header="#{portal['portal.usuario.titulo']}" style="width: 20em">
+                        <h:panelGrid columns="2" rendered="#{!tiendaBean.validarSesion()}">
+                            <p:commandButton value="Iniciar Sesión" oncomplete="PF('login').show()"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" rendered="#{tiendaBean.validarSesion()}">
+                            <h:outputLabel value="Sistema:" />
+                            <h:outputLabel value="HULK STORE" />
+                            <h:outputLabel value="Usuario:" />
+                            <h:outputLabel value="#{tiendaBean.getNombre()}" />
+                            <h:outputLabel value="Rol:" />
+                            <h:outputLabel value="#{tiendaBean.getRol()}" />
+                        </h:panelGrid>
+                        <p:separator />
+                        <h:panelGrid columns="2" rendered="#{tiendaBean.validarSesion()}">
+                            <p:commandButton value="Cerrar Sesion" 
+                                             actionListener="#{tiendaBean.login.logout()}"
+                                             update=":tiendaForm :logForm"/>
+                            <p:commandButton value="Pagar Carrito" 
+                                             rendered="#{tiendaBean.pagar}"
+                                             update=":tiendaForm"/>
+                        </h:panelGrid>
+
+                    </p:panel>
+                </p:overlayPanel>
+
+
+
+            </h:form>
+
+        </div>
+    </div>
+</ui:composition>

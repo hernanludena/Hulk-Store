@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-sonar</actionName>
+            <displayName>sonar</displayName>
+            <goals>                
+                <goal>clean install sonar:sonar</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-sonar1</actionName>
+            <displayName>sonar1</displayName>
+            <goals>
+                <goal>org.codehaus.mojo:sonar-maven-plugin:2.6:sonar</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-gen-arche</actionName>
+            <displayName>gen-arche</displayName>
+            <goals>
+                <goal>archetype:create-from-project</goal>
+            </goals>
+        </action>
+    </actions>

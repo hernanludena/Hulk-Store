@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tienda>
+    <nombreTienda>HULK STORE</nombreTienda>
+    <creador>Pablo Villarruel</creador>
+    <motivo>Prueba tecnica Todo1</motivo>
+    <producto>
+        <id>0</id>
+        <nombre>Camiseta Hulk</nombre>
+        <cantExistencia>4</cantExistencia>
+        <cls>ec.pablo.villarruel.tienda.marcas.ProductoMarvelDC</cls>
+        <cantVendido>5</cantVendido>
+        <tipo>Marvel</tipo>
+        <telefono>123456</telefono>
+        <proveedor>BCD</proveedor>
+        <fechaCreacion>24/12/2021 13:03:00</fechaCreacion>
+        <valorUnitario>15.5</valorUnitario>
+        <grabaIVA>1</grabaIVA>
+    </producto>
+    
+</tienda>
+
+

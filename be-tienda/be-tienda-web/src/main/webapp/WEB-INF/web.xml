@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name>Archetype Created Web Application</display-name>
+	
+	
+	<context-param>
+		<param-name>javax.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.sun.faces.verifyObjects</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		<param-value>true</param-value>
+	</context-param>
+<!--	<context-param>
+		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+		<param-value>/WEB-INF/primefaces-be.taglib.xml</param-value>
+	</context-param>-->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>none</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>commons</param-value>
+	</context-param>
+
+	<!-- <listener> -->
+	<!-- <listener-class>com.sun.faces.config.ConfigureListener</listener-class> -->
+
+	<!-- </listener> -->
+
+	<!-- <filter> -->
+	<!-- <filter-name>PicketLink Authentication Filter</filter-name> -->
+	<!-- <filter-class>org.picketlink.authentication.web.AuthenticationFilter</filter-class> -->
+
+	<!-- <init-param> -->
+	<!-- <param-name>authType</param-name> -->
+	<!-- <param-value>FORM</param-value> -->
+	<!-- </init-param> -->
+	<!-- <init-param> -->
+	<!-- <param-name>form-login-page</param-name> -->
+	<!-- <param-value>login.xhtml</param-value> -->
+	<!-- </init-param> -->
+	<!-- <init-param> -->
+	<!-- <param-name>form-error-page</param-name> -->
+	<!-- <param-value>loginError.xhtml</param-value> -->
+	<!-- </init-param> -->
+
+	<!-- </filter> -->
+	<!-- <filter-mapping> -->
+	<!-- <filter-name>PicketLink Authentication Filter</filter-name> -->
+	<!-- <url-pattern>/privado/*</url-pattern> -->
+	<!-- </filter-mapping> -->
+
+	<filter>
+		<filter-name>LoginPageFilter</filter-name>
+		<filter-class>ec.fin.be.portal.generic.Filtro</filter-class>
+	</filter>
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginPageFilter</filter-name>
+		<url-pattern>/privado/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>ec.fin.be.portal.generic.servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>PostIndexServlet</servlet-name>
+		<servlet-class>ec.fin.be.portal.generic.servlet.PostIndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PostIndexServlet</servlet-name>
+		<url-pattern>/PostIndexServlet</url-pattern>
+	</servlet-mapping>
+
+
+	
+
+
+
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>30</session-timeout>		
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>tienda.jsf</welcome-file>
+	</welcome-file-list>	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/publico/error/404.jsf</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/publico/error/error.jsf</location>
+	</error-page>
+	<security-constraint>
+		<display-name>NONE</display-name>
+		<web-resource-collection>
+			<web-resource-name>NONE</web-resource-name>
+			<url-pattern>/privado/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>NONE</display-name>
+		<web-resource-collection>
+			<web-resource-name>NONE</web-resource-name>
+			<url-pattern>/resource/be/*</url-pattern>
+			<url-pattern>/resource/template/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>NONE</display-name>
+		<web-resource-collection>
+			<web-resource-name>NONE</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>Tienda</realm-name>
+		<form-login-config>
+			<form-login-page>tienda.jsf</form-login-page>
+			<form-error-page>loginError.jsf</form-error-page>
+		</form-login-config>
+	</login-config>
+	<mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/x-font-woff</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>eot</extension>
+        <mime-type>application/fontawesome-webfont</mime-type>
+    </mime-mapping>
+     <mime-mapping>
+        <extension>eotf</extension>
+        <mime-type>application/fontawesome-webfont</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>ttf</extension>
+        <mime-type>application/fontawesome-webfont</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>application/fontawesome-webfont</mime-type>
+    </mime-mapping>   
+</web-app>

@@ -1,0 +1,55 @@
+<ui:composition id="tablaGestionComposition" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface id="tablaGestionInterface">
+        <cc:attribute name="bean" type="ec.fin.be.portal.generic.bean.GestionBean" required="true"/>
+        <cc:attribute name="modelo" type="ec.fin.be.comunes.web.LazyEntityDataModel" required="true"/>
+        <cc:attribute name="updateSeleccionar"/>
+        <cc:attribute name="updateDeseleccionar"/>        
+        <cc:attribute name="updateRefrescar"/>
+        <cc:attribute name="updateNuevo"/>
+        <cc:attribute name="lazy" default="false"/>
+        <cc:attribute name="updateBuscar"/>
+        <cc:attribute name="mostrarBotones" default="true"/>
+        <cc:attribute name="listaFiltros" />
+        <cc:attribute name="mostrarBotonBusquedaAvanzada" default="true" />
+        <cc:attribute name="mostrarBotonNuevo" default="true" />
+        <cc:attribute name="urlPadre" default=""/>
+        <cc:attribute name="styleClass" default=""/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation id="tablaGestionImplementation">
+        <h:inputHidden value="#{cc.attrs.updateSeleccionar}" id="HiddenNameResetPanel"/>
+        <p:menubar id="barraBotonesTabla" rendered="#{cc.attrs.mostrarBotones}">  
+            <p:menuitem id="refrescarTabla" process="@this" value="Refrescar" icon="ui-icon-refresh" actionListener="#{cc.attrs.bean.refrescar}" update="#{cc.attrs.updateRefrescar}" />
+            <p:menuitem id="nuevoElemento" process="@this" value="Nuevo" icon="ui-icon-document" actionListener="#{cc.attrs.bean.prepararAgregar}" update="#{cc.attrs.updateNuevo}" rendered="#{cc.attrs.mostrarBotonNuevo}" />
+            <p:menuitem id="buscar" process="@this" value="Búsqueda Avanzada" icon="ui-icon-search" actionListener="#{cc.attrs.bean.prepararBuscar}" update="#{cc.attrs.updateBuscar}" rendered="#{cc.attrs.mostrarBotonBusquedaAvanzada}"/>
+            <p:menuitem id="regresar" value="Regresar" icon="ui-icon-arrowreturnthick-1-w" url="#{cc.attrs.urlPadre}" rendered="#{!cc.attrs.urlPadre.isEmpty()}"  />
+            <p:menuitem id="exportar" value="Exportar" icon="ui-icon-calculator" ajax="false" immediate="true">
+                <p:dataExporter type="xls" target="tablaLista" fileName="datos"  preProcessor="#{cc.attrs.bean.exportadorXLS.preProcesadorExportarXLS}" postProcessor="#{cc.attrs.bean.exportadorXLS.postProcesadorExportarXLS}" />  
+            </p:menuitem>            
+        </p:menubar> 
+        <p:dataTable     id="tablaLista" var="reg" value="#{cc.attrs.modelo}"   
+                         paginator="true" rows="15"  
+                         lazy="#{cc.attrs.lazy}"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="5,10,15,20,50,100"
+                         paginatorPosition="bottom"
+                         selection="#{cc.attrs.bean.seleccion}" selectionMode="single"
+                         styleClass="#{cc.attrs.styleClass}" widgetVar="tablaGen"
+                         emptyMessage="No se encontraron registros asociados"  filteredValue="#{cc.attrs.listaFiltros}" >
+            <p:ajax event="rowSelect" process="@this"  listener="#{cc.attrs.bean.onRowSelect}" update="#{cc.attrs.updateSeleccionar}"   />
+            <p:ajax event="rowUnselect" process="@this"  listener="#{cc.attrs.bean.onRowUnselect}" update="#{cc.attrs.updateDeseleccionar}"/>
+            <cc:insertChildren id="columnasTabla" />                        
+        </p:dataTable>
+
+    </cc:implementation>
+
+</ui:composition>

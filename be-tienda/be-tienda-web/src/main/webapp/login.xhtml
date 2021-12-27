@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>Autenticación</title>
+    </h:head>
+    <h:body styleClass="login-body" style="background-image: url(resources/images/intranetFondo.jpg);background-position: center top;">
+        <div id="login-wrapper">
+            <div id="login-container">
+                <span class="title">Autenticación</span>
+                <h:form>
+                    <p:outputLabel value="#{login.msg}" rendered="#{login.msg !=null}"></p:outputLabel>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <p:inputText placeholder="Usuario" value="#{login.user}" autocomplete="false" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:password placeholder="Contraseña" feedback="false" value="#{login.pwd}" autocomplete="false" />
+                        </div>
+                        <div class="ui-g-12 button-container">
+                            <h:commandButton value="Ingresar" styleClass="green-btn raised-btn" action="#{login.validateUsernamePassword}" />
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        <div class="footer">
+
+
+            <table style="width: 100%">
+                <tr>
+                    <td style="text-align: center; width: 15%; font-size: 70%;"><span>#{portal['portal.footer.address']}</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; width: 15%; font-size: 70%;"><span> #{portal['portal.footer.address1']}</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; width: 15%; font-size: 70%;"><span>#{portal['portal.footer.copyright']}</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; width: 15%; font-size: 70%;"><br /> <p:clock id="reloj" mode="server" autoSync="true" syncInterval="300000"
+                                                                                                pattern="HH:mm:ss dd/MM/yyyy " /></td>
+                </tr>
+            </table>
+
+        </div>
+        <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+        <h:outputStylesheet name="theme.css" library="omega-be" />
+    </h:body>
+
+</html>

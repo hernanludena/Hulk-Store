@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" >
+
+    <div id="sidebar" class="sidebar">
+        <div class="nano">
+            <div class="nano-content sidebar-scroll-content">
+                <div class="logo">
+                    <p:graphicImage name="logocolores.png" library="images" width="200" />
+                </div>
+                <div class="profile">
+                    <!--<p:graphicImage name="{login.nombreAvatar}" library="images" />-->
+                    <!--<p:graphicImage value="{login.chart}" rendered="false" />-->
+                    <a id="profile-button" href="#"> 
+                        <span class="username">Menú</span> 
+                        <i class="fa fa-fw fa-bars"></i>
+                    </a>                  
+                    <ul>
+                        <li><a href="#{request.contextPath}/privado/index.jsf?faces-redirect=true"><i class="fa fa-fw fa-home"></i><span>#{portal['portal.controls.inicio']}</span></a></li>
+
+                    </ul>
+                </div>
+
+                <div class="menu">
+                    <h:form>
+                        <!--<po:menu widgetVar="BEMenu">-->
+                            <p:submenu label="Submenu 1">
+                                <p:menuitem value="Pagina 1" icon="fa fa-home" />
+                                <p:menuitem value="Pagina 2" icon="fa fa-home" />
+                                <p:submenu label="Submenu 2">
+                                    <p:menuitem value="Pagina 3" icon="fa fa-home" />
+                                    <p:menuitem value="Pagina 4" icon="fa fa-home" />
+                                    <p:submenu label="Submenu 3">
+                                        <p:menuitem value="Pagina 5" icon="fa fa-home" />
+                                        <p:menuitem value="Pagina 6" icon="fa fa-home" />
+                                    </p:submenu>
+                                </p:submenu>
+                            </p:submenu>
+                        <!--</po:menu>-->
+
+                   
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ui:composition>

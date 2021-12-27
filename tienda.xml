@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tienda>
+    <nombreTienda>HULK STORE</nombreTienda>
+    <creador>Pablo Villarruel</creador>
+    <motivo>Prueba tecnica Todo1</motivo>
+    <producto>
+        <id>Marvel-20211225101010</id>
+        <nombre>Camiseta Hulk</nombre>
+        <cantExistencia>5</cantExistencia>
+        <cls>ec.fin.be.tienda.entity.ProductoMarvel</cls>
+        <cantVendido>0</cantVendido>
+        <tipo>MARVEL</tipo>
+        <valorUnitario>15.5</valorUnitario>
+        <gravaIVA>1</gravaIVA>
+		<detalleOperacion>
+			<tipo>D</tipo>
+			<cantidad>5</cantidad>
+		</detalleOperacion>
+    </producto>
+	<producto>
+        <id>Marvel-20211226101010</id>
+        <nombre>Vaso Hulk</nombre>
+        <cantExistencia>20</cantExistencia>
+        <cls>ec.fin.be.tienda.entity.ProductoMarvel</cls>
+        <cantVendido>0</cantVendido>
+        <tipo>MARVEL</tipo>
+        <valorUnitario>5.5</valorUnitario>
+        <gravaIVA>0</gravaIVA>
+		<detalleOperacion>
+			<tipo>D</tipo>
+			<cantidad>20</cantidad>
+		</detalleOperacion>
+    </producto>
+	<producto>
+        <id>DC-20211226101010</id>
+        <nombre>Comic Batman</nombre>
+        <cantExistencia>3</cantExistencia>
+        <cls>ec.fin.be.tienda.entity.ProductoMarvel</cls>
+        <cantVendido>0</cantVendido>
+        <tipo>MARVEL</tipo>
+        <valorUnitario>35.6</valorUnitario>
+        <gravaIVA>0</gravaIVA>
+		<detalleOperacion>
+			<tipo>D</tipo>
+			<cantidad>3</cantidad>
+		</detalleOperacion>
+    </producto>
+    
+</tienda>
+
+

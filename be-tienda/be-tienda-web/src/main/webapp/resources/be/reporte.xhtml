@@ -1,0 +1,66 @@
+<ui:composition id="marcoReportes" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<!-- INTERFACE -->
+	<cc:interface id="marcoReportesInterface">
+		<cc:attribute name="bean" type="ec.fin.be.portal.generic.bean.ReporteBean" required="true" />
+		<cc:attribute name="titulo" />
+	</cc:interface>
+
+	<!-- IMPLEMENTATION -->
+	<cc:implementation id="marcoReportesImplementation">
+		<p:layout rendered="#{cc.attrs.bean.mostrarReporte}">
+			<p:layoutUnit id="norteReporte" position="north" collapsible="false" resizable="false">				
+					<p:toolbar>
+						<p:toolbarGroup align="left">
+							<p:commandButton value="Actualizar" icon="ui-icon-arrowrefresh-1-w" actionListener="#{cc.attrs.bean.generarReporte}"
+								update="paginaActual totalPaginas :formReporte:marcoReporte:formContenidoReporte:contenidoReporte :formMensajes" />
+						</p:toolbarGroup>
+						<p:toolbarGroup align="right">
+							<p:separator />
+							<p:commandButton title="Primera Página" icon="ui-icon-seek-first" actionListener="#{cc.attrs.bean.primeraPagina}"
+								update="paginaActual :formReporte:marcoReporte:formContenidoReporte:contenidoReporte  :formMensajes" />
+							<p:commandButton title="Página Anterior" icon="ui-icon-seek-prev" actionListener="#{cc.attrs.bean.anteriorPagina}"
+								update="paginaActual :formReporte:marcoReporte:formContenidoReporte:contenidoReporte  :formMensajes" />
+							<h:outputText value="Página " />
+							<h:outputText id="paginaActual" value="#{cc.attrs.bean.paginaActual}" />
+							<h:outputText id="totalPaginas" value=" de #{cc.attrs.bean.totalPaginas}" />
+							<p:commandButton title="Siguiente Página" icon="ui-icon-seek-next" actionListener="#{cc.attrs.bean.siguientePagina}"
+								update="paginaActual :formReporte:marcoReporte:formContenidoReporte:contenidoReporte  :formMensajes" />
+							<p:commandButton title="Ultima Página" icon="ui-icon-seek-end" actionListener="#{cc.attrs.bean.ultimaPagina}"
+								update="paginaActual :formReporte:marcoReporte:formContenidoReporte:contenidoReporte  :formMensajes" />
+							<p:separator />
+							<p:menuButton value="Exportar" rendered="true" icon="ui-icon-extlink">
+								<p:menuitem ajax="false" icon="pdf-icon" value="  PDF" actionListener="#{cc.attrs.bean.exportarPDF}" update=":formMensajes" />
+								<p:menuitem ajax="false" icon="doc-icon" value="  Word" actionListener="#{cc.attrs.bean.exportarWord}" update=":formMensajes" />
+								<p:menuitem ajax="false" icon="xls-icon" value="  Excel" actionListener="#{cc.attrs.bean.exportarExcel}" update=":formMensajes" />
+								<p:menuitem ajax="false" icon="odt-icon" value="  ODT" actionListener="#{cc.attrs.bean.exportarODT}" update=":formMensajes" />
+								<p:menuitem ajax="false" icon="ods-icon" value="  ODS" actionListener="#{cc.attrs.bean.exportarODS}" update=":formMensajes" rendered="false" />
+							</p:menuButton>						
+						</p:toolbarGroup>
+						<p:toolbarGroup align="right" rendered="false">
+							<p:commandButton id="dynaButton" value="Exportar" type="button" icon="ui-icon-extlink" />
+							<p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom" >
+								<p:menuitem ajax="false" icon="pdf-icon" value="  PDF" action="#{cc.attrs.bean.exportarPDF}" update=":formMensajes"/>
+								<p:menuitem ajax="false" icon="doc-icon" value="  Word" actionListener="#{cc.attrs.bean.exportarWord}" update=":formMensajes" />
+								<p:menuitem ajax="false" icon="xls-icon" value="  Excel" actionListener="#{cc.attrs.bean.exportarExcel}" update=":formMensajes" />
+								<p:menuitem ajax="false" icon="odt-icon" value="  ODT" actionListener="#{cc.attrs.bean.exportarODT}" update=":formMensajes" />
+								<p:menuitem ajax="false" icon="ods-icon" value="  ODS" actionListener="#{cc.attrs.bean.exportarODS}" update=":formMensajes" rendered="false" />
+							</p:menu>
+							<p:commandButton value="PDF" icon="pdf-icon-boton" actionListener="#{cc.attrs.bean.exportarPDF}" ajax="false"  />
+							<p:commandButton value="Word" icon="doc-icon-boton" actionListener="#{cc.attrs.bean.exportarWord}" ajax="false"  />
+							<p:commandButton value="Excel" icon="xls-icon-boton" actionListener="#{cc.attrs.bean.exportarExcel}" ajax="false"  />
+							<p:commandButton value="ODT" icon="odt-icon-boton" actionListener="#{cc.attrs.bean.exportarODT}" ajax="false"  />
+						</p:toolbarGroup>
+					</p:toolbar>			
+			</p:layoutUnit>
+			<p:layoutUnit position="center" style="left: 0px !important;" styleClass="layoutReporte">
+				<h:form id="formContenidoReporte">
+					<h:outputText id="contenidoReporte" escape="false" value="#{cc.attrs.bean.HTML}" />
+				</h:form>
+			</p:layoutUnit>
+		</p:layout>
+	</cc:implementation>
+
+</ui:composition>

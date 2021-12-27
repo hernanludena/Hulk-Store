@@ -1,0 +1,71 @@
+<ui:composition id="datosGestionComposition" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:be="http://java.sun.com/jsf/composite/be">
+
+    <!-- INTERFACE -->
+    <cc:interface id="datosGestionInterface">
+        <cc:attribute name="bean" type="ec.fin.be.portal.generic.bean.GestionBean" required="true"/>
+        <cc:attribute name="titulo"/>
+        <cc:attribute name="idDataTable"/>
+        <cc:attribute name="ancho" default="550px"/>
+        <cc:attribute name="updateEditar"/>
+        <cc:attribute name="updateEliminar"/>        
+        <cc:attribute name="updateLimpiar"/>
+        <cc:attribute name="updateBuscar"/>
+        <cc:attribute name="updateGuardar"/>
+        <cc:attribute name="updateCancelar"/>
+        <cc:attribute name="updateAnular"/>
+        <cc:attribute name="renderCancelButton" default="true"/>
+        <cc:attribute name="renderModificarButton" default="true"/>
+        <cc:attribute name="renderEliminarButton" default="false"/>
+        <cc:attribute name="renderAnularButton" default="false"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation id="datosGestionImplementation">         
+        <p:panel style="width: #{cc.attrs.ancho}}" header="#{cc.attrs.titulo}" >
+            <h:panelGroup layout="block" styleClass="alineacionCentro" id="PanelHijos">
+                <cc:insertChildren id="formulario"/>
+                <h:panelGrid columns="5" cellpadding="5" rendered="#{!cc.attrs.bean.mostrarBotonesAcciones}">  
+                    <p:commandButton id="guardar" value="Guardar" icon="ui-icon-disk" actionListener="#{cc.attrs.bean.procesar}" update="#{cc.attrs.updateGuardar}" rendered="#{cc.attrs.bean.mostrarBoton('agregar')}"/>
+                    <p:commandButton id="buscar" value="Buscar" icon="ui-icon-search" actionListener="#{cc.attrs.bean.procesar}" update="#{cc.attrs.updateBuscar}" rendered="#{cc.attrs.bean.mostrarBoton('buscar')}"/>  
+                    <p:commandButton id="modificar" value="Modificar" icon="ui-icon-pencil" actionListener="#{cc.attrs.bean.procesar}" update="#{cc.attrs.updateEditar}" rendered="#{cc.attrs.bean.mostrarBoton('modificar')}"/>
+                    <p:commandButton id="eliminar" value="Eliminar" icon="ui-icon-trash" rendered="#{cc.attrs.bean.mostrarBoton('eliminar') and cc.attrs.renderEliminarButton}" oncomplete="PF('dialogoEliminar').show();"/>
+                    <p:commandButton id="anular" value="Anular" icon="ui-icon-trash" rendered="#{cc.attrs.bean.mostrarBoton('anular') and cc.attrs.renderAnularButton}" oncomplete="PF('dialogoAnular').show();"/>
+                    <p:commandButton id="cancelar" value="Cancelar" rendered="#{cc.attrs.renderCancelButton}" icon="ui-icon-circle-close" actionListener="#{cc.attrs.bean.cancelar}" update="#{cc.attrs.updateCancelar}" immediate="true"/>
+                </h:panelGrid>
+                <p:blockUI block="PanelHijos" widgetVar="bui"/>
+            </h:panelGroup>
+        </p:panel>
+
+        <p:confirmDialog id="dlgEliminar" width="400" widgetVar="dialogoEliminar"
+                         message="¿Está seguro que desea Eliminar?"
+                         header="Eliminar" appendTo="@(body)">
+            <p:commandButton value="SI"
+                             actionListener="#{cc.attrs.bean.eliminar}"
+                             oncomplete="PF('dialogoEliminar').hide()"
+                             update="#{cc.attrs.updateEliminar}" process="@this"
+                             icon="ui-icon-check" />
+            <p:commandButton value="NO"
+                             onclick="PF('dialogoEliminar').hide()"  icon="ui-icon-close" />
+        </p:confirmDialog> 
+
+        <p:confirmDialog id="dlgAnular" width="400" widgetVar="dialogoAnular"
+                         message="¿Está seguro que desea Anular?"
+                         header="Anular" appendTo="@(body)">
+            <p:commandButton value="SI"
+                             actionListener="#{cc.attrs.bean.procesar}"
+                             oncomplete="PF('dialogoAnular').hide()"
+                             update="#{cc.attrs.updateAnular}" process="@this"
+                             icon="ui-icon-check" />
+            <p:commandButton value="NO"
+                             onclick="PF('dialogoAnular').hide()"  icon="ui-icon-close" />
+        </p:confirmDialog>         
+
+    </cc:implementation>
+</ui:composition>

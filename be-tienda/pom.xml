@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>be-tienda</artifactId>
+    <groupId>ec.fin.be.tienda</groupId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.6.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>3.5.6</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>org.eclipse.persistence.moxy</artifactId>
+                <version>2.5.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>3.3.0.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <scope>test</scope>
+                <version>2.44.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.testng</groupId>
+                        <artifactId>testng</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.opera</groupId>
+                <artifactId>operadriver</artifactId>
+                <scope>test</scope>
+                <version>1.5</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-remote-driver</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.9.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>2.11.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>2.11.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.olap4j</groupId>
+                <artifactId>olap4j</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>4.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>8.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>6.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.primefaces.extensions</groupId>
+                <artifactId>primefaces-extensions</artifactId>
+                <version>6.2.9</version>
+            </dependency>            
+            <dependency>
+                <groupId>com.jtransc</groupId>
+                <artifactId>jtransc-rt</artifactId>
+                <version>0.6.1</version>
+            </dependency>
+            <!-- Thanks for using https://jar-download.com -->
+       
+        
+
+            <dependency>
+                <groupId>ec.fin.be.tienda</groupId>
+                <artifactId>be-tienda-ejb</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>ec.fin.be.tienda</groupId>
+                <artifactId>be-tienda-integracion</artifactId>
+                <version>1.0</version>
+            </dependency>
+        
+
+
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jbosssx</artifactId>
+                <version>3.2.3</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-jaas</artifactId>
+                <version>3.2.3</version>
+                <scope>provided</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+    <profiles>
+        <!-- EJECUCION DE SONAR DESDE MAVEN VERSION JDK SOPORTADA: 6 CONSTRUIR EL PROYECTO EJECUCION: mvn -Psonar-mvn org.codehaus.mojo:sonar-maven-plugin:2.6:sonar 
+        sonar.projectBaseDir debe apuntar al directorio padre de todos los modulos -->
+        <profile>
+            <id>be-archetype</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+
+            <properties>
+                <sonar.jdbc.url>jdbc:postgresql://10.157.157.108:5432/sonar</sonar.jdbc.url>
+                <sonar.jdbc.driver>org.postgresql.Driver</sonar.jdbc.driver>
+                <sonar.jdbc.username>sonarqube</sonar.jdbc.username>
+                <sonar.jdbc.password>postgres</sonar.jdbc.password>
+                <sonar.host.url>http://10.157.157.108:13500/sonarqa</sonar.host.url> 
+                <sonar.language>java</sonar.language> 
+                <sonar.projectBaseDir>D:\proyectos java\be-tienda</sonar.projectBaseDir>
+                <sonar.java.sources>${sonar.projectBaseDir}/be-tienda-ear/src,${sonar.projectBaseDir}/be-tienda-ejb/src,${sonar.projectBaseDir}/be-tienda-integracion/src,${sonar.projectBaseDir}/be-tienda-web/src</sonar.java.sources>
+                <!--<sonar.java.binaries>${sonar.projectBaseDir}/be-tienda-ear/target/classes,${sonar.projectBaseDir}/be-tienda-ejb/target/classes,${sonar.projectBaseDir}/be-tienda-integracion/target/classes,${sonar.projectBaseDir}/be-tienda-web/target/classes</sonar.java.binaries>-->
+                <sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
+                <sonar.projectName>${project.artifactId}</sonar.projectName>
+                <sonar.projectVersion>${project.version}</sonar.projectVersion>
+                <sonar.forceAnalysis>true</sonar.forceAnalysis>
+                <sonar.verbose>false</sonar.verbose>
+                <sonar.svn.username>ecaiza</sonar.svn.username>
+                <sonar.svn.password.secured>sonar.svn.password.secured=ecaiza1</sonar.svn.password.secured>
+                
+
+            </properties>
+
+        </profile>
+
+    </profiles>
+    <modules>  
+        <module>be-tienda-web</module>
+        <module>be-tienda-ejb</module>
+        <module>be-tienda-ear</module>
+        <module>be-tienda-integracion</module>
+    </modules>
+</project>
