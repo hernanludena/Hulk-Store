@@ -172,15 +172,14 @@
 
 
             <properties>
-                <sonar.jdbc.url>jdbc:postgresql://10.157.157.108:5432/sonar</sonar.jdbc.url>
+                <sonar.jdbc.url>jdbc:postgresql://xxx.xxx.xxx.xxx:xxxx/sonar</sonar.jdbc.url>
                 <sonar.jdbc.driver>org.postgresql.Driver</sonar.jdbc.driver>
-                <sonar.jdbc.username>sonarqube</sonar.jdbc.username>
-                <sonar.jdbc.password>postgres</sonar.jdbc.password>
-                <sonar.host.url>http://10.157.157.108:13500/sonarqa</sonar.host.url> 
+                <sonar.jdbc.username>xxxx</sonar.jdbc.username>
+                <sonar.jdbc.password>xxxx</sonar.jdbc.password>
+                <sonar.host.url>http://xxx.xxx.xxx.xxx:xxxx/sonarqa</sonar.host.url> 
                 <sonar.language>java</sonar.language> 
                 <sonar.projectBaseDir>D:\proyectos java\be-tienda</sonar.projectBaseDir>
                 <sonar.java.sources>${sonar.projectBaseDir}/be-tienda-ear/src,${sonar.projectBaseDir}/be-tienda-ejb/src,${sonar.projectBaseDir}/be-tienda-integracion/src,${sonar.projectBaseDir}/be-tienda-web/src</sonar.java.sources>
-                <!--<sonar.java.binaries>${sonar.projectBaseDir}/be-tienda-ear/target/classes,${sonar.projectBaseDir}/be-tienda-ejb/target/classes,${sonar.projectBaseDir}/be-tienda-integracion/target/classes,${sonar.projectBaseDir}/be-tienda-web/target/classes</sonar.java.binaries>-->
                 <sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
                 <sonar.projectName>${project.artifactId}</sonar.projectName>
                 <sonar.projectVersion>${project.version}</sonar.projectVersion>

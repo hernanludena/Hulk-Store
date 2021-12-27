@@ -33,10 +33,7 @@
 		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
 		<param-value>true</param-value>
 	</context-param>
-<!--	<context-param>
-		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-		<param-value>/WEB-INF/primefaces-be.taglib.xml</param-value>
-	</context-param>-->
+
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
@@ -62,33 +59,7 @@
 		<param-value>commons</param-value>
 	</context-param>
 
-	<!-- <listener> -->
-	<!-- <listener-class>com.sun.faces.config.ConfigureListener</listener-class> -->
 
-	<!-- </listener> -->
-
-	<!-- <filter> -->
-	<!-- <filter-name>PicketLink Authentication Filter</filter-name> -->
-	<!-- <filter-class>org.picketlink.authentication.web.AuthenticationFilter</filter-class> -->
-
-	<!-- <init-param> -->
-	<!-- <param-name>authType</param-name> -->
-	<!-- <param-value>FORM</param-value> -->
-	<!-- </init-param> -->
-	<!-- <init-param> -->
-	<!-- <param-name>form-login-page</param-name> -->
-	<!-- <param-value>login.xhtml</param-value> -->
-	<!-- </init-param> -->
-	<!-- <init-param> -->
-	<!-- <param-name>form-error-page</param-name> -->
-	<!-- <param-value>loginError.xhtml</param-value> -->
-	<!-- </init-param> -->
-
-	<!-- </filter> -->
-	<!-- <filter-mapping> -->
-	<!-- <filter-name>PicketLink Authentication Filter</filter-name> -->
-	<!-- <url-pattern>/privado/*</url-pattern> -->
-	<!-- </filter-mapping> -->
 
 	<filter>
 		<filter-name>LoginPageFilter</filter-name>
