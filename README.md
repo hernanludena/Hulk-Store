@@ -16,8 +16,7 @@ con con el registro registro de nuevos productos y disminuya con la salida de lo
 interfaces correspondientes. Importante aclarar que cuando un producto no tenga stock no permita realizar monivienos con él.
 # Requisitos
 
-- [WildFly 11 ](https://www.wildfly.org/news/2017/10/24/WildFly11-Final-Released/) 
-- [JBOSS 7.2 ]
+- [JBOSS 7.2 ] / [WildFly 11 ](https://www.wildfly.org/news/2017/10/24/WildFly11-Final-Released/) 
 - [JDK 1.8 ](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
   - __Note__:
     El proyecto esta desarollado en Win7, Se debe configurar las variables de entorno:
@@ -76,6 +75,15 @@ public static final String PATHCARGA = "path/tienda.xml";
     `path` debe ser la ruta donde coloquen el archivo xml 
 ```
 
+- Usuarios
+```
+Nombre        Usuario    Clave     
+
+Compador 1   COMPRADOR  COMPRADOR
+
+Vendedor 1   VENDEDOR   VENDEDOR
+
+```
 
 ### Testing Backend con selenium
 
