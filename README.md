@@ -31,7 +31,7 @@ interfaces correspondientes. Importante aclarar que cuando un producto no tenga 
          M2_HOME  (path mvn)
          Path ....;%M2_HOME%\bin;....
      ```
-- [Archivo inicial ] tienda.xml
+- [Archivo inicial ](https://github.com/pvillarruel/Hulk-Store/blob/main/tienda.xml) tienda.xml
 
 # Aplicacion
 La aplicacion es un monolito basado en MVN.
