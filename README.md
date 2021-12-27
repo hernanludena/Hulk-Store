@@ -32,6 +32,8 @@ interfaces correspondientes. Importante aclarar que cuando un producto no tenga 
          Path ....;%M2_HOME%\bin;....
      ```
 - [Archivo inicial ](https://github.com/pvillarruel/Hulk-Store/blob/main/tienda.xml) tienda.xml
+  - __Note__:
+    Es importante especificar el path del archivo en la clase Constantes
 
 # Aplicacion
 La aplicacion es un monolito basado en MVN.
