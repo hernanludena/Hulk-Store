@@ -100,7 +100,7 @@ OperacionesTienda
 Si quieres revisar el demo de este proyecto deberas desplegar en Jboss o WildFly y ejecutar en el navegador dependiendo la configuracion del sersvidor(https://xxx.xxx.xxx.xxx:xxxx/tienda/)
 
 ## PRUEBAS (PDF)
-Si desea tener una guía de uso del sistema por favor acceder al archivo Pruebas.pdf.
+Si desea tener una guía de uso del sistema por favor acceder al archivo [Pruebas.pdf](https://github.com/pvillarruel/Hulk-Store/blob/main/Pruebas.pdf).
 
 ## Contribuciones
 Si desea agregar contribuciones monetarias aguegue en la cuenta de [paypal-blablo](https://paypal.com) ayudará para tomar el cafecito de las 19:00 :D 
