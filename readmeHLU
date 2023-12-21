@@ -4,3 +4,19 @@ Se levanta con wildfly-20.0.1.Final y se compila con jdk-1.8
 NO se puede usar java mas actual porque Widfly compatible con JEE8 es hasta el 20
 Debido a que usa JAXB, para trabajar con archivos XML
 JAXB esta deprecado en el JEE9, ahora llamado Jakarta EE9
+
+
+http://localhost:8080/tienda/
+Se levanta el el puerto 8080, porque esta definicio en el Standalone ese puerto como http
+<socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
+        <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
+        <socket-binding name="http" port="${jboss.http.port:8080}"/>
+        <socket-binding name="https" port="${jboss.https.port:8443}"/>
+        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
+        <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
+        <socket-binding name="txn-recovery-environment" port="4712"/>
+        <socket-binding name="txn-status-manager" port="4713"/>
+        <outbound-socket-binding name="mail-smtp">
+            <remote-destination host="localhost" port="25"/>
+        </outbound-socket-binding>
+    </socket-binding-group>
