@@ -1,0 +1,6 @@
+http://localhost:8080/tienda/
+
+Se levanta con wildfly-20.0.1.Final y se compila con jdk-1.8
+NO se puede usar java mas actual porque Widfly compatible con JEE8 es hasta el 20
+Debido a que usa JAXB, para trabajar con archivos XML
+JAXB esta deprecado en el JEE9, ahora llamado Jakarta EE9
